@@ -43,15 +43,16 @@ def get_noun(quantity):
     Return: a randomly chosen noun.
     """
     if quantity == 1:
-        words = ["bird", "boy", "car", "cat", "child", "dog", "girl", "man", "rabbit", "woman"]
+        words = ["bird", "boy", "car", "cat", "child",
+                 "dog", "girl", "man", "rabbit", "woman"]
     else:
-        words = ["birds", "boys", "cars", "cats", "children", "dogs", "girls", "men", "rabbits", "women"]
+        words = ["birds", "boys", "cars", "cats", "children",
+                 "dogs", "girls", "men", "rabbits", "women"]
 
     # Randomly choose and return a determiner.
     noun = random.choice(words)
 
     return noun
-
 
 
 def get_verb(quantity, tense):
@@ -81,14 +82,18 @@ def get_verb(quantity, tense):
     Return: a randomly chosen verb.
     """
     if tense == "past":
-        words = ["drank", "ate", "grew", "laughed", "thought", "ran", "slept", "talked", "walked", "wrote"]
+        words = ["drank", "ate", "grew", "laughed", "thought",
+                 "ran", "slept", "talked", "walked", "wrote"]
     elif tense == "future":
-        words = ["will drink", "will eat", "will grow", "will laugh",  "will think", "will run", "will sleep", "will talk", "will walk", "will write"]
+        words = ["will drink", "will eat", "will grow", "will laugh",  "will think",
+                 "will run", "will sleep", "will talk", "will walk", "will write"]
     elif tense == "present":
         if quantity == 1:
-            words = ["drinks", "eats", "grows", "laughs", "thinks", "runs", "sleeps", "talks", "walks", "writes"]
+            words = ["drinks", "eats", "grows", "laughs", "thinks",
+                     "runs", "sleeps", "talks", "walks", "writes"]
         else:
-            words = ["drink", "eat", "grow", "laugh", "think", "run", "sleep", "talk", "walk", "write"]
+            words = ["drink", "eat", "grow", "laugh", "think",
+                     "run", "sleep", "talk", "walk", "write"]
 
     # Randomly choose and return a determiner.
     verb = random.choice(words)
@@ -107,9 +112,11 @@ def make_sentence(quantity, tense):
     deter = get_determiner(quantity)
     noun = get_noun(quantity)
     verb = get_verb(quantity, tense)
-    sentence = deter + " " + noun + " " + verb
+    prepositional1 = get_prepositional_phrase(quantity)
+    prepositional2 = get_prepositional_phrase(quantity)
+    sentence = deter + " " + noun + " " + prepositional1 + " " + verb + " " + prepositional2 + "."
 
-    print(sentence)
+    print(sentence.capitalize())
 
 
 def main():
@@ -126,5 +133,50 @@ def main():
 
     # page end
     print()
+
+
+def get_preposition():
+    """Return a randomly chosen preposition
+    from this list of prepositions:
+        "about", "above", "across", "after", "along",
+        "around", "at", "before", "behind", "below",
+        "beyond", "by", "despite", "except", "for",
+        "from", "in", "into", "near", "of",
+        "off", "on", "onto", "out", "over",
+        "past", "to", "under", "with", "without"
+
+    Return: a randomly chosen preposition.
+    """
+    words = ["about", "above", "across", "after", "along",
+        "around", "at", "before", "behind", "below",
+        "beyond", "by", "despite", "except", "for",
+        "from", "in", "into", "near", "of",
+        "off", "on", "onto", "out", "over",
+        "past", "to", "under", "with", "without"]
+    
+    preposition = random.choice(words)
+    return preposition
+
+
+def get_prepositional_phrase(quantity):
+    """Build and return a prepositional phrase composed
+    of three words: a preposition, a determiner, and a
+    noun by calling the get_preposition, get_determiner,
+    and get_noun functions.
+
+    Parameter
+        quantity: an integer that determines if the
+            determiner and noun in the prepositional
+            phrase returned from this function should
+            be single or pluaral.
+    Return: a prepositional phrase.
+    """
+    preposition = get_preposition()
+    determiner = get_determiner(quantity)
+    noun = get_noun(quantity)
+
+    phrase = preposition + " " + determiner + " " + noun
+    return phrase
+
 
 main()
