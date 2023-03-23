@@ -28,13 +28,22 @@ def session_start():
     return session
 
 
-def session_end(storage_dist):
-    with open("saves.json", "w") as file:
-        json.dump(storage_dist, file)
+def session_save(storage_dist):
+    try:
+        with open("./Final_Project/saves.json", "r") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        data = {}
+
+    # Update the data with the new storage_dist dictionary
+    data.update(storage_dist)
+
+    with open("./Final_Project/saves.json", "w") as file:
+        json.dump(data, file)
 
 
 def load_saves():
-    with open("saves.json", "r") as file:
+    with open("./Final_Project/saves.json", "r") as file:
         data = json.load(file)
 
     return data
@@ -70,8 +79,13 @@ def find_key(sides):
 #     "d?": []
 # }
 # roll_list = [1, 3, 2, 4]
-# print(session_storage_update(data, roll_list, "d4"))
+# print(session_storage_update(data, roll_list, 4))
 # roll_list = [1, 3, 2, 4]
-# print(session_storage_update(data, roll_list, "d4"))
+# print(session_storage_update(data, roll_list, 4))
 # roll_list = [1, 3, 2, 4]
-# print(session_storage_update(data, roll_list, "d4"))
+# print(session_storage_update(data, roll_list, 4))
+
+# session_save(data)
+
+# saves = load_saves()
+# print(f"saves: {saves}")

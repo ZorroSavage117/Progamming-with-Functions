@@ -1,10 +1,18 @@
+import saving
 import datetime
 
-# Get the current date and format it as a string
-current_date = datetime.date.today().strftime("%Y-%m-%d")
+data = saving.session_start()
+currenttime = datetime.date.today().strftime("%Y-%m-%d")
 
-# Create a dictionary with the current date as the key
-my_dict = {current_date: "Some value"}
+print(f"dist: {data}")
+roll_list = [1, 3, 2, 4]
+saving.session_storage_update(data[currenttime], roll_list, 4)
+roll_list = [1, 3, 2, 4]
+saving.session_storage_update(data[currenttime], roll_list, 4)
+roll_list = [1, 3, 2, 4]
+saving.session_storage_update(data[currenttime], roll_list, 4)
 
-# Print the dictionary
-print(my_dict)
+saving.session_save(data)
+
+saves = saving.load_saves()
+print(f"saves: {saves}")
