@@ -1,18 +1,20 @@
+import dice
+import dice2
 import saving
-import datetime
+import pytest 
 
-data = saving.session_start()
-currenttime = datetime.date.today().strftime("%Y-%m-%d")
+def test_roll_d4():
+    assert 0 <= dice.roll_d4() <= 4
 
-print(f"dist: {data}")
-roll_list = [1, 3, 2, 4]
-saving.session_storage_update(data[currenttime], roll_list, 4)
-roll_list = [1, 3, 2, 4]
-saving.session_storage_update(data[currenttime], roll_list, 4)
-roll_list = [1, 3, 2, 4]
-saving.session_storage_update(data[currenttime], roll_list, 4)
+def test_roll_d_unknown():
+    assert 0 <= dice.roll_d_unknown(25) <= 25
 
-saving.session_save(data)
+def test_find_key():
+    assert saving.find_key(25) == 'd?'
 
-saves = saving.load_saves()
-print(f"saves: {saves}")
+def test_sum_of_rolls():
+    rolls = [4, 20, 6, 10]
+    assert dice2.sum_of_rolls(rolls) == 40
+
+
+pytest.main(["-v", "--tb=line", "-rN", __file__])
